@@ -1,50 +1,85 @@
-🚀 Resumen del proyecto
+Telecom X — Predicción de Cancelación (Churn) · Parte 2
+Descripción del proyecto
 
-Este repositorio contiene el pipeline completo de modelado de churn para Telecom X: preparación de datos, análisis de correlación, selección de variables, entrenamiento de modelos, evaluación y explicación de resultados.
-Se prioriza recall de la clase 1 (churn) para detectar el mayor número posible de clientes en riesgo.
+Este proyecto implementa un sistema de predicción de cancelación de clientes (churn) para la empresa Telecom X.
+El objetivo es identificar de forma anticipada a los clientes con alta probabilidad de cancelar sus servicios, permitiendo a la compañía aplicar estrategias de retención más efectivas y focalizadas.
 
-Hallazgos clave (de la corrida actual):
+Objetivos cumplidos
 
-Modelos con mejor discriminación: Regresión Logística y SVM lineal → ROC-AUC ≈ 0.845, recall ≈ 0.79 (clase 1).
+Preparación y tratamiento de datos: limpieza, codificación y normalización de variables.
 
-Random Forest: accuracy 0.79, ROC-AUC 0.828, recall 0.463 (más conservador; se le escapan churners).
+Control de multicolinealidad: análisis VIF y eliminación de variables redundantes.
 
-KNN: ROC-AUC 0.794, recall 0.489 (baseline).
+Balanceo de clases: aplicación de SMOTE/SMOTENC únicamente sobre el set de entrenamiento.
 
-Factores que ↑ riesgo de churn: Charges.Monthly (precio mensual), InternetService_Fiber optic, PaymentMethod_Electronic check, PaperlessBilling_Yes, tenure bajo.
-Factores protectores: Contract_One year, Contract_Two year, tenure alto, TechSupport_Yes, OnlineSecurity_Yes.
+Entrenamiento de modelos: Regresión Logística, SVM lineal, Random Forest y KNN.
 
-Estrategias sugeridas: ofertas de downgrade/paquetes a alto precio, incentivos para pasar de mes-a-mes a anual/bianual, onboarding proactivo en los primeros 90 días, migración de pagos a débito/tarjeta automática, y ajuste de umbral en Logística/SVM según presupuesto de retención.
+Evaluación de desempeño: métricas de precisión, recall, F1 y ROC-AUC, además de análisis visual.
 
+Interpretación de variables clave: análisis de coeficientes e importancias para comprender los factores que impulsan la cancelación.
 
-📊 Resultados (corrida actual)
+Informe final con conclusiones y recomendaciones de negocio.
 
-Logística / SVM lineal: ROC-AUC ≈ 0.845, recall ≈ 0.79 (mejor para detectar churners).
+Dataset
 
-Random Forest: accuracy 0.79, ROC-AUC 0.828, recall 0.463.
+Variable objetivo: Churn (Yes / No)
 
-KNN: ROC-AUC 0.794, recall 0.489.
+Principales variables predictoras:
 
-Variables top (consenso): Charges.Monthly, tenure, Contract_One year, Contract_Two year, InternetService_Fiber optic, PaymentMethod_Electronic check, PaperlessBilling_Yes, OnlineSecurity_Yes, TechSupport_Yes.
+Tenencia (tenure)
 
-🧭 Recomendaciones de negocio (retención)
+Cargos mensuales y totales (Charges.Monthly, Charges.Total)
 
-Precio/valor: ofertas de downgrade/paquetes o descuentos temporales para alto Charges.Monthly (más si es fibra y tenure bajo).
+Tipo de contrato (Contract_*)
 
-Contratos: mover mes-a-mes → anual/bianual con incentivos (3–6 meses de beneficio).
+Tipo de servicio de internet (InternetService_*)
 
-Onboarding & soporte: foco en tenure < 3 meses; activar pruebas de TechSupport/OnlineSecurity.
+Soporte técnico, streaming y servicios adicionales (TechSupport_Yes, StreamingTV_Yes, StreamingMovies_Yes)
 
-Pagos: migrar Electronic check → automático (tarjeta/débito) y mejorar recordatorios/UX de facturación digital.
+Métodos de pago (PaymentMethod_*)
 
-Operación del modelo: usar Logística/SVM; ajustar umbral según presupuesto y medir PR-AUC / recall@top-k.
+Resultados principales
 
-🔁 Próximos pasos
+Mejores modelos para discriminación de churn:
 
-Validación temporal (train en meses antiguos, test en recientes).
+Regresión Logística y SVM lineal con ROC-AUC ≈ 0.845 y recall ≈ 0.79 para clientes que cancelan.
 
-Calibración de probabilidades y threshold tuning por costo/beneficio.
+Útiles cuando la prioridad es maximizar la captura de clientes en riesgo.
 
-Segmentos piloto de retención y medición de uplift.
+Random Forest: mayor accuracy (0.79) pero recall menor (0.463) para la clase de cancelación.
 
-Prueba de XGBoost/LightGBM y SHAP para explicabilidad.
+KNN: desempeño global correcto (ROC-AUC ≈ 0.794) pero con recall bajo para churn.
+
+Factores clave identificados
+
+Mayor riesgo de cancelación:
+
+Contratos de corto plazo o mensuales.
+
+Servicio de internet de fibra óptica o sin internet.
+
+Altos cargos mensuales.
+
+Pago mediante cheque electrónico.
+
+Ausencia de soporte técnico o servicios adicionales.
+
+Menor riesgo:
+
+Contratos de dos años.
+
+Mayor tiempo de permanencia (tenure).
+
+Servicios adicionales activos (tech support, streaming).
+
+Recomendaciones estratégicas
+
+Incentivar contratos de mayor duración (1-2 años) mediante descuentos o beneficios.
+
+Mejorar la experiencia temprana en clientes nuevos (< 12 meses) con soporte proactivo.
+
+Ofrecer paquetes de servicios que incluyan soporte técnico y streaming sin coste adicional inicial.
+
+Revisar tarifas y promociones para clientes con cargos mensuales altos.
+
+Migrar métodos de pago a opciones más estables (ej. tarjeta automática).
