@@ -127,3 +127,10 @@ El notebook fue ejecutado **de principio a fin en un entorno limpio**, utilizand
 ```bash
 jupyter nbconvert --to notebook --execute Proyecto_telecomx2.ipynb
 ).
+## Versiones de las librerias
+numpy==2.0.2
+pandas==2.2.2
+matplotlib==3.10.0
+seaborn==0.13.2
+scikit-learn==1.6.1
+statsmodels==0.14.6
