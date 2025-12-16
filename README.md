@@ -4,6 +4,23 @@ Descripción del proyecto
 Este proyecto implementa un sistema de predicción de cancelación de clientes (churn) para la empresa Telecom X.
 El objetivo es identificar de forma anticipada a los clientes con alta probabilidad de cancelar sus servicios, permitiendo a la compañía aplicar estrategias de retención más efectivas y focalizadas.
 
+## Cómo ejecutarlo en este entorno
+
+1. Crear y activar un entorno virtual (opcional pero recomendado):
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate
+   ```
+2. Instalar las dependencias con el `requirements.txt` incluido en el repositorio. Si hay restricciones de red, añade `--no-cache-dir` o configura tu proxy (`HTTPS_PROXY=http://...`).
+   ```bash
+   pip install -r requirements.txt --no-cache-dir
+   ```
+3. Ejecutar el notebook de forma no interactiva para verificar la reproducción completa:
+   ```bash
+   jupyter nbconvert --to notebook --execute Proyecto_telecomx2.ipynb --output Proyecto_telecomx2-ejecutado.ipynb
+   ```
+   El archivo de datos requerido (`datos_tratados (1).csv`) está en el mismo directorio.
+
 Objetivos cumplidos
 
 Preparación y tratamiento de datos: limpieza, codificación y normalización de variables.
